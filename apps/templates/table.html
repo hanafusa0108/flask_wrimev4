@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Annotation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='table/table.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>WRIME-v4 一覧</h1>
+
+    <!-- File Upload Form -->
+    <div class="file-input">
+        <input type="file" id="fileInput" accept=".json">
+        <button class="btn" onclick="uploadFile()">Upload</button>
+    </div>
+
+    <!-- Pagination Controls (Top) -->
+    <div id="pagination-top">
+        <button id="prevBtnTop" onclick="changePage(currentPage - 1)">前</button>
+        <button id="nextBtnTop" onclick="changePage(currentPage + 1)">次</button>
+    </div>
+    <span id="pageInfoTop"></span>
+
+    <!-- Display uploaded data -->
+    <div class="table-container">
+        <h2>Uploaded Data</h2>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>行</th> <!-- 行数を表示する列 -->
+                    <th>文</th>
+                    <th>喜び</th>
+                    <th>悲しみ</th>
+                    <th>期待</th>
+                    <th>驚き</th>
+                    <th>怒り</th>
+                    <th>恐れ</th>
+                    <th>嫌悪</th>
+                    <th>怒り</th>
+                    <th>文の極性</th>
+                    <th>アノテーション済みか</th>
+                    <!-- Add more columns as necessary -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Controls (Bottom) -->
+    <div id="pagination-bottom">
+        <button id="prevBtnBottom" onclick="changePage(currentPage - 1)">前</button>
+        <span id="pageInfoBottom"></span>
+        <button id="nextBtnBottom" onclick="changePage(currentPage + 1)">次</button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='table/table.js') }}"></script>
+
+</body>
+</html>

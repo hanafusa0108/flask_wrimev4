@@ -1,0 +1,20 @@
+.chart-container {
+    display: flex; /* フレックスボックスで横並びにする */
+    justify-content: flex-start; /* 中央揃え */
+    margin: 20px;
+}
+canvas {
+    margin: 50px; /* 各キャンバスのマージン */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.input-container input[type="text"] {
+    margin-right: 10px; /* テキスト入力と数値入力の間にスペースを追加 */
+}
+.input-container select {
+    margin-right: 10px; /* 数値入力とリストボックスの間にスペースを追加 */
+}
