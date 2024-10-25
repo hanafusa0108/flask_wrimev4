@@ -5,29 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentence Details</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/sentence_detail/sentence_detail.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        /* 追加のスタイルはここに */
+    </style>
 </head>
 <body>
+    {% include 'navbar.html' %}  <!-- 共通部分のインクルード -->
+
     <div class="container">
         <div class="details-container">
             <h1>Sentence Details</h1>
-            <div id="sentence_id" style="font-size: 1.5em; margin-bottom: 20px;">{{ sentence.id }} </div>
-            <div id="sentenceDisplay" style="font-size: 1.5em; margin-bottom: 20px;">{{ sentence.sentence }}</div>
-            <div id="sentenceCount" style="margin-top: 20px;"></div> <!-- 件数を表示する場所 -->
+            <div id="sentence_id">{{ sentence.id }}</div>
+            <div id="sentenceDisplay">{{ sentence.sentence }}</div>
+            <div id="sentenceCount"></div>
         </div>
 
         <div class="chart-container">
             <canvas id="radarChart" width="300" height="300"></canvas>
             <p id="sentiment"><strong>文の極性:</strong> {{ sentence.avg_readers_sentiment }}</p>
         </div>
+
+        <h3>アノテーション</h3>
+        <div id="split_sentence">{{ sentence.split_sentence }}</div>
+        
+        <a href="/">戻る</a>
     </div>
 
-    <h3>アノテーション</h3>
-    <div id="split_sentence" style="font-size: 1.5em; margin-bottom: 20px;">{{ sentence.split_sentence }} </div>
-
-    <a href="/">戻る</a>
-
     <script src="{{ url_for('static', filename='sentence_detail/sentence_detail.js') }}"></script>
-
 </body>
 </html>
