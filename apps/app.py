@@ -30,6 +30,7 @@ def upload():
         
         annotation = Annotation(
             sentence=item['Sentence'],
+            split_sentence=item['Split_sentence'],
             id=item['id'],
             user_id=item['UserID'],
             datetime=item['Datetime'],
@@ -94,6 +95,7 @@ class Annotation(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     sentence = db.Column(db.String(500))
+    split_sentence = db.Column(db.String(1000))
     avg_readers_joy = db.Column(db.Integer, nullable=False)
     avg_readers_sadness = db.Column(db.Integer, nullable=False)
     avg_readers_anticipation = db.Column(db.Integer, nullable=False)
@@ -109,6 +111,7 @@ class Annotation(db.Model):
         return {
             'id': self.id,
             'Sentence': self.sentence,
+            'Split_sentence': self.split_sentence,
             'Writer_Joy': self.avg_readers_joy,
             'Writer_Sadness': self.avg_readers_sadness,
             'Writer_Anticipation': self.avg_readers_anticipation,
@@ -158,6 +161,7 @@ def sentence_detail_to_json(sentence_id):
         sentence_data = {
             'id': annotation.id,
             'sentence': annotation.sentence,
+            'split_sentence': annotation.split_sentence,
             'avg_readers_sentiment': annotation.avg_readers_sentiment,
             'avg_readers_joy': annotation.avg_readers_joy,
             'avg_readers_sadness': annotation.avg_readers_sadness,

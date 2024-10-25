@@ -5,6 +5,7 @@ db = SQLAlchemy()
 class Annotation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sentence = db.Column(db.Text, nullable=False)
+    split_sentence = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.String(10), nullable=True)
     datetime = db.Column(db.String(20), nullable=False)
     train_dev_test = db.Column(db.String(10), nullable=False)
