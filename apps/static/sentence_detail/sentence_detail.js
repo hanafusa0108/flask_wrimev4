@@ -1,31 +1,34 @@
-const sentiment = parseFloat(document.getElementById('sentiment').textContent.trim());
-const joy = parseFloat(document.getElementById('joy').textContent.trim());
-const sadness = parseFloat(document.getElementById('sadness').textContent.trim());
-const anticipation = parseFloat(document.getElementById('anticipation').textContent.trim());
-const surprise = parseFloat(document.getElementById('surprise').textContent.trim());
-const anger = parseFloat(document.getElementById('anger').textContent.trim());
-const fear = parseFloat(document.getElementById('fear').textContent.trim());
-const disgust = parseFloat(document.getElementById('disgust').textContent.trim());
-const trust = parseFloat(document.getElementById('trust').textContent.trim());
+// AJAXリクエストでデータを取得
+const sentenceId = document.getElementById('sentence_id').textContent.trim(); // sentence_idのIDを持つ要素から値を取得
+fetch(`/api/sentence/${sentenceId}`)
+    .then(response => response.json())
+    .then(data => {
+        // デバッグ用に全データを表示
+        console.log(data);
+        
+        // レーダーチャートの作成
+        createRadarChart(data);
+    })
+    .catch(error => console.error('Error:', error));
 
 // レーダーチャートを作成する関数
-function createRadarChart() {
+function createRadarChart(data) {
     const ctx = document.getElementById('radarChart').getContext('2d');
 
-    // 現在の文に対応する感情の値を取得
-    const data = {
+    // 感情の値を取得
+    const chartData = {
         labels: ['喜び', '悲しみ', '期待', '驚き', '怒り', '恐れ', '嫌悪', '信頼'],
         datasets: [{
             label: '感情の強度',
             data: [
-                joy,
-                sadness,
-                anticipation,
-                surprise,
-                anger,
-                fear,
-                disgust,
-                trust
+                data.avg_readers_joy,
+                data.avg_readers_sadness,
+                data.avg_readers_anticipation,
+                data.avg_readers_surprise,
+                data.avg_readers_anger,
+                data.avg_readers_fear,
+                data.avg_readers_disgust,
+                data.avg_readers_trust
             ],
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
@@ -35,7 +38,7 @@ function createRadarChart() {
 
     const config = {
         type: 'radar',
-        data: data,
+        data: chartData, // 修正したデータ変数をここに使用
         options: {
             responsive: false,
             scales: {
@@ -54,12 +57,9 @@ function createRadarChart() {
                         color: 'red'
                     }
                 }
-                
             }
         }
     };
 
-    radarChartInstance = new Chart(ctx, config);
+    new Chart(ctx, config);
 }
-
-createRadarChart()

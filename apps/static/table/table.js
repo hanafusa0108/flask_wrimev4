@@ -45,12 +45,14 @@ function loadAnnotations(page) {
             data.annotations.forEach(annotation => {
                 rowIndex++;  // 行インデックスをインクリメント
                 const row = document.createElement('tr');
+                // annotation.idを使ってリンクを生成
+                const detailLink = `/sentence/${annotation.id}`;
 
                 // クエリパラメータに各項目を埋め込んでリンクを生成
-                const detailLink = `/details?sentence=${encodeURIComponent(annotation.Sentence)}&id=${rowIndex}&joy=${annotation.Writer_Joy}&sadness=${annotation.Writer_Sadness}&anticipation=${annotation.Writer_Anticipation}&surprise=${annotation.Writer_Surprise}&anger=${annotation.Writer_Anger}&fear=${annotation.Writer_Fear}&disgust=${annotation.Writer_Disgust}&trust=${annotation.Writer_Trust}&sentiment=${annotation.Writer_Sentiment}`;
+                //const detailLink = `/details?sentence=${encodeURIComponent(annotation.Sentence)}&id=${annotation.id}&joy=${annotation.Writer_Joy}&sadness=${annotation.Writer_Sadness}&anticipation=${annotation.Writer_Anticipation}&surprise=${annotation.Writer_Surprise}&anger=${annotation.Writer_Anger}&fear=${annotation.Writer_Fear}&disgust=${annotation.Writer_Disgust}&trust=${annotation.Writer_Trust}&sentiment=${annotation.Writer_Sentiment}`;
 
                 row.innerHTML = `
-                    <td><a href="${detailLink}">${rowIndex}</a></td>  <!-- 行数にリンクを追加 -->
+                    <td><a href="${detailLink}">${annotation.id}</a></td>  <!-- 行数にリンクを追加 -->
                     <td>${annotation.Sentence}</td>
                     <td>${annotation.Writer_Joy}</td>
                     <td>${annotation.Writer_Sadness}</td>

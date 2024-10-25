@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Details</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/sentence_detail/sentence_detail.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="details-container">
+            <h1>Sentence Details</h1>
+            <div id="sentence_id" style="font-size: 1.5em; margin-bottom: 20px;">{{ sentence.id }} </div>
+            <div id="sentenceDisplay" style="font-size: 1.5em; margin-bottom: 20px;">{{ sentence.sentence }}</div>
+            <div id="sentenceCount" style="margin-top: 20px;"></div> <!-- 件数を表示する場所 -->
+        </div>
+
+        <div class="chart-container">
+            <canvas id="radarChart" width="300" height="300"></canvas>
+            <p id="sentiment"><strong>文の極性:</strong> {{ sentence.avg_readers_sentiment }}</p>
+        </div>
+    </div>
+
+    <h3>アノテーション</h3>
+    <!-- <div id="split_sentence" style="font-size: 1.5em; margin-bottom: 20px;">{{ sentence.split_sentence }} </div> -->
+
+    <a href="/">戻る</a>
+
+    <script src="{{ url_for('static', filename='sentence_detail/sentence_detail.js') }}"></script>
+
+</body>
+</html>

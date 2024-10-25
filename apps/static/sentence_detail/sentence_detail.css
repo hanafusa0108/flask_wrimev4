@@ -18,3 +18,15 @@ canvas {
 .input-container select {
     margin-right: 10px; /* 数値入力とリストボックスの間にスペースを追加 */
 }
+
+.container {
+    display: flex; /* 横に並べるための設定 */
+    align-items: flex-start; /* 上部を揃える */
+    gap: 20px; /* 要素間の間隔を設定 */
+}
+.chart-container {
+    flex-direction: column; 
+}
+.details-container {
+    flex: 2; /* 文の内容が大きくなるように調整 */
+}

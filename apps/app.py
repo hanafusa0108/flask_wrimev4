@@ -27,8 +27,10 @@ def upload():
 
     # JSONデータをパースしてデータベースに保存
     for item in data:
+        
         annotation = Annotation(
             sentence=item['Sentence'],
+            id=item['id'],
             user_id=item['UserID'],
             datetime=item['Datetime'],
             train_dev_test=item['Train/Dev/Test'],
@@ -76,7 +78,8 @@ def upload():
             avg_readers_fear=item['Avg. Readers_Fear'],
             avg_readers_disgust=item['Avg. Readers_Disgust'],
             avg_readers_trust=item['Avg. Readers_Trust'],
-            avg_readers_sentiment=item['Avg. Readers_Sentiment']
+            avg_readers_sentiment=item['Avg. Readers_Sentiment'],
+            
         )
         db.session.add(annotation)
 
@@ -167,6 +170,40 @@ def sentence_details():
 
     return render_template('details.html', sentence=sentence_data)
 
+@app.route('/sentence/<int:sentence_id>', methods=['GET'])
+def sentence_detail(sentence_id):
+    # データベースから特定のIDのアノテーションを取得
+    annotation = Annotation.query.filter_by(id=sentence_id).first()
+
+    if annotation:
+        # annotationが存在すれば、データをHTMLテンプレートに渡す
+        return render_template('sentence_detail.html', sentence=annotation)
+    else:
+        return "Sentence not found", 404
+
+@app.route('/api/sentence/<int:sentence_id>', methods=['GET'])
+def sentence_detail_to_json(sentence_id):
+    # データベースから特定のIDのアノテーションを取得
+    annotation = Annotation.query.filter_by(id=sentence_id).first()
+
+    if annotation:
+        # annotationが存在すれば、データをJSON形式で返す
+        sentence_data = {
+            'id': annotation.id,
+            'sentence': annotation.sentence,
+            'avg_readers_sentiment': annotation.avg_readers_sentiment,
+            'avg_readers_joy': annotation.avg_readers_joy,
+            'avg_readers_sadness': annotation.avg_readers_sadness,
+            'avg_readers_anticipation': annotation.avg_readers_anticipation,
+            'avg_readers_surprise': annotation.avg_readers_surprise,
+            'avg_readers_anger': annotation.avg_readers_anger,
+            'avg_readers_fear': annotation.avg_readers_fear,
+            'avg_readers_disgust': annotation.avg_readers_disgust,
+            'avg_readers_trust': annotation.avg_readers_trust
+        }
+        return jsonify(sentence_data)
+    else:
+        return jsonify({"error": "Sentence not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
