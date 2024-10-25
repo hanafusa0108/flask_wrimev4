@@ -5,7 +5,7 @@ import json
 from models import db, Annotation
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/hanafusa/flask_wrimev4/instance/annotations.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///annotations.db'  # SQLiteを使用
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
