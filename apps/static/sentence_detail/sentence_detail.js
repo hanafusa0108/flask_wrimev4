@@ -65,7 +65,8 @@ function createRadarChart(data) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const splitSentenceDiv = document.getElementById("split_sentence");
+    // const splitSentenceDiv = document.getElementById("split_sentence");
+    const selectWord = document.getElementById("select_word")
     const selectedWordsInput = document.getElementById("selectedWords");
     // const sentenceWords = splitSentenceDiv.textContent.trim().split(" "); // スペースで単語分割
     fetch(`/api/sentence/${sentenceId}`)
@@ -83,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 selectedWordsInput.value += word + " ";
             });
             
-            splitSentenceDiv.appendChild(button);
+            selectWord.appendChild(button);
         });
         })
     .catch(error => console.error('Error:', error));
