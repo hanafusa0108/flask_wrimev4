@@ -137,39 +137,6 @@ def get_annotations():
         'current_page': annotations.page
     })
 
-# 詳細ページ用のルート
-@app.route('/details')
-def sentence_details():
-    # クエリパラメータからデータを取得
-    sentence = request.args.get('sentence')
-    id = request.args.get('id')
-    joy = request.args.get('joy')
-    sadness = request.args.get('sadness')
-    anticipation = request.args.get('anticipation')
-    surprise = request.args.get('surprise')
-    anger = request.args.get('anger')
-    fear = request.args.get('fear')
-    disgust = request.args.get('disgust')
-    trust = request.args.get('trust')
-    sentiment = request.args.get('sentiment')
-
-    # データを辞書にまとめる
-    sentence_data = {
-        'sentence': sentence,
-        'id': id,
-        'writer_joy': joy,
-        'writer_sadness': sadness,
-        'writer_anticipation': anticipation,
-        'writer_surprise': surprise,
-        'writer_anger': anger,
-        'writer_fear': fear,
-        'writer_disgust': disgust,
-        'writer_trust': trust,
-        'writer_sentiment': sentiment
-    }
-
-    return render_template('details.html', sentence=sentence_data)
-
 @app.route('/sentence/<int:sentence_id>', methods=['GET'])
 def sentence_detail(sentence_id):
     # データベースから特定のIDのアノテーションを取得

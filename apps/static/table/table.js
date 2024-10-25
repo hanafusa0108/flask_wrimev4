@@ -54,15 +54,6 @@ function loadAnnotations(page) {
                 row.innerHTML = `
                     <td><a href="${detailLink}">${annotation.id}</a></td>  <!-- 行数にリンクを追加 -->
                     <td>${annotation.Sentence}</td>
-                    <td>${annotation.Writer_Joy}</td>
-                    <td>${annotation.Writer_Sadness}</td>
-                    <td>${annotation.Writer_Anticipation}</td>
-                    <td>${annotation.Writer_Surprise}</td>
-                    <td>${annotation.Writer_Anger}</td>
-                    <td>${annotation.Writer_Fear}</td>
-                    <td>${annotation.Writer_Disgust}</td>
-                    <td>${annotation.Writer_Trust}</td>
-                    <td>${annotation.Writer_Sentiment}</td>
                 `;
                 tableBody.appendChild(row);
             });
