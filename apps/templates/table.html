@@ -6,34 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dataset Annotation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='table/table.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        .file-input {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .table-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .pagination {
+            justify-content: center; /* Pagination buttons are centered */
+            margin: 20px 0;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #e9ecef; /* Hover effect for table rows */
+        }
+    </style>
 </head>
 <body>
+    {% include 'navbar.html' %}  <!-- 共通部分のインクルード -->
 
 <div class="container">
     <h1>WRIME-v4 一覧</h1>
 
     <!-- File Upload Form -->
     <div class="file-input">
-        <input type="file" id="fileInput" accept=".json">
-        <button class="btn" onclick="uploadFile()">Upload</button>
+        <input type="file" id="fileInput" accept=".json" class="form-control me-2">
+        <button class="btn btn-primary" onclick="uploadFile()">Upload</button>
     </div>
 
     <!-- Pagination Controls (Top) -->
-    <div id="pagination-top">
-        <button id="prevBtnTop" onclick="changePage(currentPage - 1)">前</button>
-        <button id="nextBtnTop" onclick="changePage(currentPage + 1)">次</button>
-    </div>
-    <!-- <span id="pageInfoTop"></span> -->
+    <nav class="pagination" id="pagination-top">
+        <button id="prevBtnTop" class="btn btn-secondary" onclick="changePage(currentPage - 1)">前</button>
+        <button id="nextBtnTop" class="btn btn-secondary" onclick="changePage(currentPage + 1)">次</button>
+    </nav>
 
     <!-- Display uploaded data -->
-    <div class="table-container">
-        <h2>Uploaded Data</h2>
-        <table id="dataTable">
+    <div class="container table-container">
+        <h2 class="mt-4">Uploaded Data</h2>
+        <table id="dataTable" class="table table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>行</th> <!-- 行数を表示する列 -->
+                    <th>行</th>
                     <th>文</th>
-                    <!-- Add more columns as necessary -->
                 </tr>
             </thead>
             <tbody>
@@ -43,11 +71,11 @@
     </div>
 
     <!-- Pagination Controls (Bottom) -->
-    <div id="pagination-bottom">
-        <button id="prevBtnBottom" onclick="changePage(currentPage - 1)">前</button>
+    <nav class="pagination" id="pagination-bottom">
+        <button id="prevBtnBottom" class="btn btn-secondary" onclick="changePage(currentPage - 1)">前</button>
         <span id="pageInfoBottom"></span>
-        <button id="nextBtnBottom" onclick="changePage(currentPage + 1)">次</button>
-    </div>
+        <button id="nextBtnBottom" class="btn btn-secondary" onclick="changePage(currentPage + 1)">次</button>
+    </nav>
 </div>
 
 <script src="{{ url_for('static', filename='table/table.js') }}"></script>
