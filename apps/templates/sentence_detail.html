@@ -42,7 +42,91 @@
         </div>
 
         <h3>アノテーション</h3>
-        <div id="split_sentence">{{ sentence.split_sentence }}</div>
+        <div id="split_sentence"></div>
+
+        <form method="POST" action="/">
+            
+            <!-- 単語が追加される入力フォーム -->
+            <input type="text" id="selectedWords" class="form-control" placeholder="選択した単語がここに表示されます">
+            <!-- リストボックスの作成 -->
+            <label for="colorSelect">極性:</label>
+            <select id="colorSelect">
+                <option value="">極性を選んでください</option>
+                <option value="2">強いポジティブ</option>
+                <option value="1">ポジティブ</option>
+                <option value="0">ニュートラル</option>
+                <option value="-1">ネガティブ</option>
+                <option value="-2">強いネガティブ</option>
+            </select>
+
+            <label for="colorSelect">喜び:</label>
+            <select id="colorSelect">
+                <option value="0">無</option>
+                <option value="1">弱</option>
+                <option value="2">中</option>
+                <option value="3">強</option>
+            </select>
+
+            <label for="colorSelect">悲しみ:</label>
+            <select id="colorSelect">
+                <option value="0">無</option>
+                <option value="1">弱</option>
+                <option value="2">中</option>
+                <option value="3">強</option>
+            </select>
+
+            <label for="colorSelect">期待:</label>
+            <select id="colorSelect">
+                <option value="0">無</option>
+                <option value="1">弱</option>
+                <option value="2">中</option>
+                <option value="3">強</option>
+            </select>
+
+            <label for="colorSelect">驚き:</label>
+            <select id="colorSelect">
+                <option value="0">無</option>
+                <option value="1">弱</option>
+                <option value="2">中</option>
+                <option value="3">強</option>
+            </select>
+
+            <label for="colorSelect">怒り:</label>
+            <select id="colorSelect">
+                <option value="0">無</option>
+                <option value="1">弱</option>
+                <option value="2">中</option>
+                <option value="3">強</option>
+            </select>
+
+            <label for="colorSelect">恐れ:</label>
+            <select id="colorSelect">
+                <option value="0">無</option>
+                <option value="1">弱</option>
+                <option value="2">中</option>
+                <option value="3">強</option>
+            </select>
+
+            <label for="colorSelect">嫌悪:</label>
+            <select id="colorSelect">
+                <option value="0">無</option>
+                <option value="1">弱</option>
+                <option value="2">中</option>
+                <option value="3">強</option>
+            </select>
+
+            <label for="colorSelect">信頼:</label>
+            <select id="colorSelect">
+                <option value="0">無</option>
+                <option value="1">弱</option>
+                <option value="2">中</option>
+                <option value="3">強</option>
+            </select>
+
+            <button type="submit">保存</button>
+        </form>
+        
+        
         
         <a href="/">戻る</a>
     </div>

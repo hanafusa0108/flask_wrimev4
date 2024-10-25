@@ -63,3 +63,29 @@ function createRadarChart(data) {
 
     new Chart(ctx, config);
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const splitSentenceDiv = document.getElementById("split_sentence");
+    const selectedWordsInput = document.getElementById("selectedWords");
+    // const sentenceWords = splitSentenceDiv.textContent.trim().split(" "); // スペースで単語分割
+    fetch(`/api/sentence/${sentenceId}`)
+    .then(response => response.json())
+    .then(data => {
+        const sentenceWords = data.split_sentence.split(" "); // スペースで単語分割
+
+        sentenceWords.forEach(word => {
+            const button = document.createElement("button");
+            button.classList.add("btn", "btn-outline-primary", "word-button");
+            button.textContent = word;
+            
+            // ボタンがクリックされたときにフォームに追加
+            button.addEventListener("click", function() {
+                selectedWordsInput.value += word + " ";
+            });
+            
+            splitSentenceDiv.appendChild(button);
+        });
+        })
+    .catch(error => console.error('Error:', error));
+    
+});
