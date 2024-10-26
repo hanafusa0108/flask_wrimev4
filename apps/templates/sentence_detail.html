@@ -1,138 +1,64 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentence Details</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .container {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        /* 追加のスタイルはここに */
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='sentence_detail/sentence_detail.css') }}"> -->
 </head>
+
 <body>
-    {% include 'navbar.html' %}  <!-- 共通部分のインクルード -->
+    {% include 'navbar.html' %}
 
     <div class="container">
-        <div class="details-container">
-            <h1>Sentence Details</h1>
-            <div id="sentence_id">{{ sentence.id }}</div>
+        <div class="details-container mb-4">
+            <div class="d-flex align-items-center mb-2"> <!-- Flexboxを使って横並びにする -->
+                <h1 id="sentence_id" class="me-3">{{ sentence.id }}</h1> <!-- IDをh1タグに設定 -->
+                <h1>Sentence Details</h1>
+            </div>
+
             <div id="sentenceDisplay">{{ sentence.sentence }}</div>
             <div id="sentenceCount"></div>
         </div>
 
-        <div class="chart-container">
-            <canvas id="radarChart" width="300" height="300"></canvas>
-            <p id="sentiment"><strong>文の極性:</strong> {{ sentence.avg_readers_sentiment }}</p>
+        <!-- レーダーチャートと保存内容を横並びに配置 -->
+        <div class="row">
+            <div class="col-md-6 chart-container">
+                <div class="card"> <!-- カードの開始 -->
+                    <div class="card-body text-center"> <!-- カードボディを中央揃え -->
+                        <canvas id="radarChart" width="300" height="300" style="display: inline-block;"></canvas> <!-- キャンバスをインラインブロックに -->
+                        <p id="sentiment"><strong>文の極性:</strong> {{ sentence.avg_readers_sentiment }}</p>
+                    </div>
+                </div> <!-- カードの終了 -->
+            </div>
+            
+
+            <!-- 保存された内容を右側に配置 -->
+            <div class="col-md-6">
+                <h3>アノテーション結果</h3>
+                <!-- 保存内容が表示される場所 -->
+            </div>
         </div>
 
-        <h3>アノテーション</h3>
-        <div id="split_sentence"></div>
+        <h3 class="mt-4">アノテーション</h3>
+        <div id="split_sentence">{{ sentence.split_sentence }}</div>
+        <div id="select_word" class="mb-3"></div>
 
-        <form method="POST" action="/input_save">
-            
-            <!-- 単語が追加される入力フォーム -->
-            <input type="text" id="selectedWords" class="form-control" placeholder="選択した単語がここに表示されます">
-            <!-- リストボックスの作成 -->
-            <label for="polarity">極性:</label>
-            <select id="polarity">
-                <option value="">極性を選んでください</option>
-                <option value="2">強いポジティブ</option>
-                <option value="1">ポジティブ</option>
-                <option value="0">ニュートラル</option>
-                <option value="-1">ネガティブ</option>
-                <option value="-2">強いネガティブ</option>
-            </select>
+        <form method="POST" action="/input_save" class="mt-4">
+            <input type="text" id="selectedWords" class="form-control mb-3" placeholder="選択した単語がここに表示されます">
 
-            <label for="joy">喜び:</label>
-            <select id="joy">
-                <option value="0">無</option>
-                <option value="1">弱</option>
-                <option value="2">中</option>
-                <option value="3">強</option>
-            </select>
+            <!-- 感情評価のリスト部分を外部ファイルとして読み込む -->
+            {% include 'emotion_select.html' %}
 
-            <label for="sadness">悲しみ:</label>
-            <select id="sadness">
-                <option value="0">無</option>
-                <option value="1">弱</option>
-                <option value="2">中</option>
-                <option value="3">強</option>
-            </select>
-
-            <label for="anticipation">期待:</label>
-            <select id="anticipation">
-                <option value="0">無</option>
-                <option value="1">弱</option>
-                <option value="2">中</option>
-                <option value="3">強</option>
-            </select>
-
-            <label for="surprise">驚き:</label>
-            <select id="surprise">
-                <option value="0">無</option>
-                <option value="1">弱</option>
-                <option value="2">中</option>
-                <option value="3">強</option>
-            </select>
-
-            <label for="anger">怒り:</label>
-            <select id="anger">
-                <option value="0">無</option>
-                <option value="1">弱</option>
-                <option value="2">中</option>
-                <option value="3">強</option>
-            </select>
-
-            <label for="fear">恐れ:</label>
-            <select id="fear">
-                <option value="0">無</option>
-                <option value="1">弱</option>
-                <option value="2">中</option>
-                <option value="3">強</option>
-            </select>
-
-            <label for="disgust">嫌悪:</label>
-            <select id="disgust">
-                <option value="0">無</option>
-                <option value="1">弱</option>
-                <option value="2">中</option>
-                <option value="3">強</option>
-            </select>
-
-            <label for="trust">信頼:</label>
-            <select id="trust">
-                <option value="0">無</option>
-                <option value="1">弱</option>
-                <option value="2">中</option>
-                <option value="3">強</option>
-            </select>
-
-            <button type="submit">保存</button>
+            <button type="submit" class="btn btn-primary mt-3">追加</button>
         </form>
-
-        <h3>保存された内容</h3>
-        
-        
-        
-        <a href="/">戻る</a>
     </div>
 
     <script src="{{ url_for('static', filename='sentence_detail/sentence_detail.js') }}"></script>
 </body>
+
 </html>
