@@ -1,0 +1,87 @@
+{% set emotions = [
+    { "name": "polarity", "label": "極性", "options": [
+        { "value": "", "label": "極性を選んでください" },
+        { "value": "2", "label": "強いポジティブ" },
+        { "value": "1", "label": "ポジティブ" },
+        { "value": "0", "label": "ニュートラル" },
+        { "value": "-1", "label": "ネガティブ" },
+        { "value": "-2", "label": "強いネガティブ" }
+    ]},
+    { "name": "joy", "label": "喜び", "options": [
+        { "value": "0", "label": "無" },
+        { "value": "1", "label": "弱" },
+        { "value": "2", "label": "中" },
+        { "value": "3", "label": "強" }
+    ]},
+    { "name": "sadness", "label": "悲しみ", "options": [
+        { "value": "0", "label": "無" },
+        { "value": "1", "label": "弱" },
+        { "value": "2", "label": "中" },
+        { "value": "3", "label": "強" }
+    ]},
+    { "name": "anticipation", "label": "期待", "options": [
+        { "value": "0", "label": "無" },
+        { "value": "1", "label": "弱" },
+        { "value": "2", "label": "中" },
+        { "value": "3", "label": "強" }
+    ]},
+    { "name": "surprise", "label": "驚き", "options": [
+        { "value": "0", "label": "無" },
+        { "value": "1", "label": "弱" },
+        { "value": "2", "label": "中" },
+        { "value": "3", "label": "強" }
+    ]},
+    { "name": "anger", "label": "怒り", "options": [
+        { "value": "0", "label": "無" },
+        { "value": "1", "label": "弱" },
+        { "value": "2", "label": "中" },
+        { "value": "3", "label": "強" }
+    ]},
+    { "name": "fear", "label": "恐れ", "options": [
+        { "value": "0", "label": "無" },
+        { "value": "1", "label": "弱" },
+        { "value": "2", "label": "中" },
+        { "value": "3", "label": "強" }
+    ]},
+    { "name": "disgust", "label": "嫌悪", "options": [
+        { "value": "0", "label": "無" },
+        { "value": "1", "label": "弱" },
+        { "value": "2", "label": "中" },
+        { "value": "3", "label": "強" }
+    ]},
+    { "name": "trust", "label": "信頼", "options": [
+        { "value": "0", "label": "無" },
+        { "value": "1", "label": "弱" },
+        { "value": "2", "label": "中" },
+        { "value": "3", "label": "強" }
+    ]}
+] %}
+
+<!-- 感情評価の選択フォームをループで表示 -->
+<div class="container">
+    <div class="row mb-4">
+        <!-- 感情極性を1行で表示 -->
+        <div class="col-12">
+            <label for="polarity" class="form-label">{{ emotions[0].label }}:</label>
+            <select id="polarity" name="polarity" class="form-select form-select-sm d-inline w-auto ms-2">
+                {% for option in emotions[0].options %}
+                    <option value="{{ option.value }}">{{ option.label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row gx-3">
+        <!-- 他の感情を横並びで表示 -->
+        {% for emotion in emotions[1:] %}
+            <div class="col-md-3 d-flex align-items-center mb-3">
+                <label for="{{ emotion.name }}" class="form-label me-2">{{ emotion.label }}:</label>
+                <select id="{{ emotion.name }}" name="{{ emotion.name }}" class="form-select form-select-sm">
+                    {% for option in emotion.options %}
+                        <option value="{{ option.value }}">{{ option.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endfor %}
+    </div>
+</div>
