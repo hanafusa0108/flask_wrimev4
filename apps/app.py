@@ -175,6 +175,8 @@ def sentence_detail_to_json(sentence_id):
         return jsonify(sentence_data)
     else:
         return jsonify({"error": "Sentence not found"}), 404
+    
+
 
 if __name__ == '__main__':
     app.run(debug=True)
