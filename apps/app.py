@@ -5,7 +5,7 @@ import json
 from models import db, Annotation
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/hanafusa/flask_wrimev4/instance/annotations.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///annotations.db'  # SQLiteを使用
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -175,6 +175,8 @@ def sentence_detail_to_json(sentence_id):
         return jsonify(sentence_data)
     else:
         return jsonify({"error": "Sentence not found"}), 404
+    
+
 
 if __name__ == '__main__':
     app.run(debug=True)
